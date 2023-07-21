@@ -4,6 +4,7 @@ import "./App.css";
 import getWeather from "../services/weather-api";
 
 import CurrentWeather from "./CurrentWeather";
+import Loader from "./Loader/Loader";
 
 export default class App extends Component {
   state = {
@@ -12,6 +13,7 @@ export default class App extends Component {
     forecastday: {},
     city: "",
     update: false,
+    isLoading: false,
   };
 
   componentDidMount() {
@@ -21,22 +23,26 @@ export default class App extends Component {
     //   this.setState((prevState) => {
     //     return { update: !prevState.update };
     //   });
-    // }, 300000);
+    // }, 60000);
   }
 
   componentDidUpdate(_, prevState) {
     const { city, update } = this.state;
 
-    if (prevState.update !== update || prevState.city !== city) {
+    if (prevState.city !== city || prevState.update !== update) {
       this.fetchWeather(city);
     }
   }
 
+  componentDidCatch(err, info) {
+    console.log(err, info);
+  }
+
   fetchWeather = async () => {
+    this.toggleLoader();
+
     try {
       const data = await getWeather(this.state.city);
-
-      console.log(data);
 
       const {
         location,
@@ -47,15 +53,29 @@ export default class App extends Component {
       this.setState({ current, forecastday, location });
     } catch (err) {
       console.log(err);
+    } finally {
+      this.toggleLoader();
     }
   };
 
+  toggleLoader = () => {
+    this.setState((prevState) => {
+      return { isLoading: !prevState.isLoading };
+    });
+  };
+
   render() {
-    const { current, location } = this.state;
+    const { current, location, isLoading } = this.state;
+
+    const isNotEmptyCurrent = Object.keys(current).length !== 0;
+    const isNotEmptyLocation = Object.keys(location).length !== 0;
 
     return (
       <div className="App">
-        <CurrentWeather currentWeather={current} location={location} />
+        {isNotEmptyCurrent && isNotEmptyLocation && (
+          <CurrentWeather currentWeather={current} location={location} />
+        )}
+        {isLoading && <Loader />}
       </div>
     );
   }
