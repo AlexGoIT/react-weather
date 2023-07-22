@@ -30,6 +30,7 @@ class CurrentWeather extends Component {
       last_updated_epoch,
     } = this.props.currentWeather;
     const { name, region, country } = this.props.location;
+
     return (
       <CurrentWeatherContainer>
         <h1 className="location-name">{name}</h1>
@@ -48,18 +49,18 @@ class CurrentWeather extends Component {
 
 export default CurrentWeather;
 
-// CurrentWeather.propTypes = {
-//   currentWeather: PropTypes.shape({
-//     condition: PropTypes.shape({
-//       text: PropTypes.string.isRequired,
-//       icon: PropTypes.string.isRequired,
-//     }).isRequired,
-//     temp_c: PropTypes.number.isRequired,
-//     last_updated_epoch: PropTypes.number.isRequired,
-//   }),
-//   location: PropTypes.shape({
-//     name: PropTypes.string.isRequired,
-//     region: PropTypes.string.isRequired,
-//     country: PropTypes.string.isRequired,
-//   }).isRequired,
-// };
+CurrentWeather.propTypes = {
+  currentWeather: PropTypes.shape({
+    condition: PropTypes.shape({
+      text: PropTypes.string.isRequired,
+      icon: PropTypes.string.isRequired,
+    }).isRequired,
+    temp_c: PropTypes.number.isRequired,
+    last_updated_epoch: PropTypes.number.isRequired,
+  }),
+  location: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    region: PropTypes.string.isRequired,
+    country: PropTypes.string.isRequired,
+  }).isRequired,
+};
