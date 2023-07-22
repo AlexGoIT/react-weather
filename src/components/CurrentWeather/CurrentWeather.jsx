@@ -1,51 +1,70 @@
-import { render } from "@testing-library/react";
 import PropTypes from "prop-types";
-import { Component } from "react";
+import Box from "@mui/material/Box";
 
 import { datetimeConverter } from "../../utils/converter";
+import {
+  City,
+  Region,
+  Country,
+  LastUpdate,
+  Icon,
+  TempC,
+  Text,
+} from "./CurrentWeather.styled";
 
-import { CurrentWeatherContainer } from "./CurrentWeather.styled";
+const CurrentWeather = ({ currentWeather, location }) => {
+  const {
+    condition: { text, icon },
+    temp_c,
+    last_updated_epoch,
+  } = currentWeather;
+  const { name, region, country } = location;
 
-class CurrentWeather extends Component {
-  static defaultProps = {
-    currentWeather: {
-      condition: {
-        text: "",
-        icon: "",
-      },
-      temp_c: 0,
-      last_updated_epoch: 0,
-    },
-    location: {
-      name: "",
-      region: "",
-      country: "",
-    },
-  };
-
-  render() {
-    const {
-      condition: { text, icon },
-      temp_c,
-      last_updated_epoch,
-    } = this.props.currentWeather;
-    const { name, region, country } = this.props.location;
-
-    return (
-      <CurrentWeatherContainer>
-        <h1 className="location-name">{name}</h1>
-        <h2 className="location-region">{region}</h2>
-        <h3 className="location-country">{country}</h3>
-        <img className="weather-icon" src={icon} alt={text} />
-        <p className="weather-text">{text}</p>
-        <p className="weather-temp_c">{temp_c}</p>
-        <p className="weather-last-update">
-          {datetimeConverter(last_updated_epoch)}
-        </p>
-      </CurrentWeatherContainer>
-    );
-  }
-}
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 1,
+        background:
+          "linear-gradient(0deg, rgba(255,247,127,1) 0%, rgba(109,156,255,1) 100%)",
+        borderRadius: 2,
+        padding: 1,
+        boxShadow: "4px 4px 4px rgba(0, 0, 0, 0.25)",
+      }}
+    >
+      <Box sx={{ display: "flex", justifyContent: "space-between", gap: 0.5 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          <City>{name}</City>
+          <Country>{country}</Country>
+          <Region>{region}</Region>
+        </Box>
+        <Box sx={{ display: "flex" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
+            <TempC>{temp_c} ℃</TempC>
+            <Text>{text}</Text>
+          </Box>
+          <Icon src={icon} alt={text} />
+        </Box>
+      </Box>
+      <LastUpdate>
+        Last updated: {datetimeConverter(last_updated_epoch)}
+      </LastUpdate>
+    </Box>
+  );
+};
 
 export default CurrentWeather;
 

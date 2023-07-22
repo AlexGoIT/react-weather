@@ -1,10 +1,13 @@
 import { Component } from "react";
-import "./App.css";
 
-import getWeather from "../services/weather-api";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 
 import CurrentWeather from "./CurrentWeather";
+import ForecastWeather from "./ForecastWeather";
 import Loader from "./Loader/Loader";
+
+import getWeather from "../services/weather-api";
 
 export default class App extends Component {
   state = {
@@ -65,18 +68,21 @@ export default class App extends Component {
   };
 
   render() {
-    const { current, location, isLoading } = this.state;
+    const { current, location, forecastday, isLoading } = this.state;
 
     const isNotEmptyCurrent = Object.keys(current).length !== 0;
     const isNotEmptyLocation = Object.keys(location).length !== 0;
 
     return (
-      <div className="App">
+      <Container maxWidth="sm" sx={{ padding: 2 }} className="App">
         {isNotEmptyCurrent && isNotEmptyLocation && (
-          <CurrentWeather currentWeather={current} location={location} />
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <CurrentWeather currentWeather={current} location={location} />
+            <ForecastWeather forecastday={forecastday} />
+          </Box>
         )}
         {isLoading && <Loader />}
-      </div>
+      </Container>
     );
   }
 }

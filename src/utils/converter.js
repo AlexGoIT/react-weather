@@ -1,4 +1,4 @@
-import dateFormat, { i18n } from "dateformat";
+import dateFormat from "dateformat";
 
 const datetimeConverter = (timestamp) => {
   const now = new Date(timestamp * 1000);
