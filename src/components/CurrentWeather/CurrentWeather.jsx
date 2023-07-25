@@ -12,12 +12,12 @@ import {
   Text,
 } from "./CurrentWeather.styled";
 
-const CurrentWeather = ({ currentWeather, location }) => {
+const CurrentWeather = ({ current, location }) => {
   const {
     condition: { text, icon },
     temp_c,
     last_updated_epoch,
-  } = currentWeather;
+  } = current;
   const { name, region, country } = location;
 
   return (

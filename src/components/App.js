@@ -11,9 +11,7 @@ import getWeather from "../services/weather-api";
 
 export default class App extends Component {
   state = {
-    location: {},
-    current: {},
-    forecastday: {},
+    weather: {},
     city: "",
     update: false,
     isLoading: false,
@@ -33,7 +31,7 @@ export default class App extends Component {
     const { city, update } = this.state;
 
     if (prevState.city !== city || prevState.update !== update) {
-      this.fetchWeather(city);
+      this.fetchWeather();
     }
   }
 
@@ -45,17 +43,11 @@ export default class App extends Component {
     this.toggleLoader();
 
     try {
-      const data = await getWeather(this.state.city);
+      const weather = await getWeather(this.state.city);
 
-      const {
-        location,
-        current,
-        forecast: { forecastday },
-      } = data;
-
-      this.setState({ current, forecastday, location });
+      this.setState({ weather });
     } catch (err) {
-      console.log(err);
+      console.log("fetchWeather", err);
     } finally {
       this.toggleLoader();
     }
@@ -68,17 +60,21 @@ export default class App extends Component {
   };
 
   render() {
-    const { current, location, forecastday, isLoading } = this.state;
+    const { weather, isLoading } = this.state;
 
-    const isNotEmptyCurrent = Object.keys(current).length !== 0;
-    const isNotEmptyLocation = Object.keys(location).length !== 0;
+    const isNotEmptyWeather = Object.keys(weather).length !== 0;
+
+    console.log("render", isNotEmptyWeather);
 
     return (
       <Container maxWidth="sm" sx={{ padding: 2 }} className="App">
-        {isNotEmptyCurrent && isNotEmptyLocation && (
+        {isNotEmptyWeather && (
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <CurrentWeather currentWeather={current} location={location} />
-            <ForecastWeather forecastday={forecastday} />
+            <CurrentWeather
+              current={weather.current}
+              location={weather.location}
+            />
+            <ForecastWeather forecast={weather.forecast} />
           </Box>
         )}
         {isLoading && <Loader />}

@@ -10,10 +10,11 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import { datetimeConverter } from "../../utils/converter";
 
-const ForecastWeather = ({ forecastday }) => {
-  return forecastday.map((day) => {
+const ForecastWeather = ({ forecast: { forecastday } }) => {
+  return forecastday.map((day, id) => {
     return (
       <Accordion
+        key={id}
         sx={{
           background:
             "linear-gradient(0deg, rgba(255,247,127,1) 0%, rgba(109,156,255,1) 100%)",
