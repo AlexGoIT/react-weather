@@ -10,22 +10,22 @@ export const ForecastWeatherDate = styled.p`
   font-weight: bold;
 `;
 
-export const ForecastWheatherTempBox = styled.div`
+export const ForecastWeatherTempBox = styled.div`
   margin-left: 20px;
 `;
 
-export const ForecastWheatherTempMin = styled.p`
+export const ForecastWeatherTempMin = styled.p`
   text-align: end;
 `;
 
-export const ForecastWheatherTempMax = styled.p`
+export const ForecastWeatherTempMax = styled.p`
   text-align: end;
 `;
 
-export const ForecastWheatherIcon = styled.img`
+export const ForecastWeatherIcon = styled.img`
   width: 40px;
   height: 40px;
   margin-inline: 10px;
 `;
 
-export const ForecastWheatherText = styled.p``;
+export const ForecastWeatherText = styled.p``;

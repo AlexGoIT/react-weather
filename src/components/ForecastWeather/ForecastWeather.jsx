@@ -8,11 +8,11 @@ import Forecastday from "../Foracastday/Forecastday";
 import {
   ForecastWeatherContent,
   ForecastWeatherDate,
-  ForecastWheatherTempBox,
-  ForecastWheatherTempMax,
-  ForecastWheatherTempMin,
-  ForecastWheatherIcon,
-  ForecastWheatherText,
+  ForecastWeatherTempBox,
+  ForecastWeatherTempMax,
+  ForecastWeatherTempMin,
+  ForecastWeatherIcon,
+  ForecastWeatherText,
 } from "./ForecastWeather.styled.js";
 
 const ForecastWeather = ({ forecast: { forecastday } }) => {
@@ -29,21 +29,21 @@ const ForecastWeather = ({ forecast: { forecastday } }) => {
             <ForecastWeatherDate>
               {datetimeConverter(forecastday.date_epoch)}
             </ForecastWeatherDate>
-            <ForecastWheatherTempBox>
-              <ForecastWheatherTempMax>
+            <ForecastWeatherTempBox>
+              <ForecastWeatherTempMax>
                 max {forecastday.day.maxtemp_c}℃
-              </ForecastWheatherTempMax>
-              <ForecastWheatherTempMin>
+              </ForecastWeatherTempMax>
+              <ForecastWeatherTempMin>
                 min {forecastday.day.mintemp_c}℃
-              </ForecastWheatherTempMin>
-            </ForecastWheatherTempBox>
-            <ForecastWheatherIcon
+              </ForecastWeatherTempMin>
+            </ForecastWeatherTempBox>
+            <ForecastWeatherIcon
               src={forecastday.day.condition.icon}
               alt={forecastday.day.condition.text}
             />
-            <ForecastWheatherText>
+            <ForecastWeatherText>
               {forecastday.day.condition.text}
-            </ForecastWheatherText>
+            </ForecastWeatherText>
           </ForecastWeatherContent>
         </AccordionSummary>
         <AccordionDetails>
