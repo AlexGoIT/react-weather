@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { style } from "@mui/system";
 
 export const ForecastTime = styled.p`
   text-align: center;

@@ -1,6 +1,6 @@
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { accordion, accordionSummary } from "./settings";
+import { accordion } from "./settings";
 
 import { datetimeConverter } from "../../utils/converter";
 
