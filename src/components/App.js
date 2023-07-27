@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -8,6 +8,8 @@ import ForecastWeather from "./ForecastWeather";
 import Loader from "./Loader/Loader";
 
 import getWeather from "../services/weather-api";
+
+document.title = "Weather APP";
 
 const App = () => {
   const [weather, setWeather] = useState({});
@@ -38,9 +40,13 @@ const App = () => {
     }
   }, [city, update]);
 
-  setInterval(() => {
-    setUpdate(!update);
-  }, 300000);
+  const timer = useRef(() => {
+    setInterval(() => {
+      setUpdate(!update);
+    }, 300000);
+
+    return clearInterval(timer);
+  });
 
   const { location, current, forecast } = weather;
   const isNotEmptyWeather = location ? true : false;

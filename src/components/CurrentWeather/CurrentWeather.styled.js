@@ -31,7 +31,6 @@ export const TempC = styled.p`
 
 export const Text = styled.p`
   font-size: 0.8rem;
-  text-align: end;
   font-style: italic;
 `;
 

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 
-import { datetimeConverter } from "../../utils/converter";
+import { datetimeConverter, timeConverter } from "../../utils/converter";
 import {
   City,
   Region,
@@ -60,7 +60,8 @@ const CurrentWeather = ({ current, location }) => {
         </Box>
       </Box>
       <LastUpdate>
-        Last updated: {datetimeConverter(last_updated_epoch)}
+        Last updated: {datetimeConverter(last_updated_epoch)}{" "}
+        {timeConverter(last_updated_epoch)}
       </LastUpdate>
     </Box>
   );

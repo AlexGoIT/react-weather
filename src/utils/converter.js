@@ -3,7 +3,13 @@ import dateFormat from "dateformat";
 const datetimeConverter = (timestamp) => {
   const now = new Date(timestamp * 1000);
 
-  return dateFormat(now, "dd.mm.yyyy HH:MM");
+  return dateFormat(now, "dd.mm.yyyy");
+};
+
+const timeConverter = (timestamp) => {
+  const now = new Date(timestamp * 1000);
+
+  return dateFormat(now, "HH:MM");
 };
 
 const dateConverter = (timestamp) => {
@@ -16,4 +22,4 @@ const dateConverter = (timestamp) => {
   };
 };
 
-export { datetimeConverter, dateConverter };
+export { datetimeConverter, dateConverter, timeConverter };
