@@ -1,41 +1,53 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Typography,
-} from "@mui/material";
-
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-// import Box from "@mui/material/Box";
+import { accordion, accordionSummary } from "./settings";
 
 import { datetimeConverter } from "../../utils/converter";
 
+import Forecastday from "../Foracastday/Forecastday";
+import {
+  ForecastWeatherContent,
+  ForecastWeatherDate,
+  ForecastWheatherTempBox,
+  ForecastWheatherTempMax,
+  ForecastWheatherTempMin,
+  ForecastWheatherIcon,
+  ForecastWheatherText,
+} from "./ForecastWeather.styled.js";
+
 const ForecastWeather = ({ forecast: { forecastday } }) => {
-  return forecastday.map((day, id) => {
+  return forecastday.map((forecastday, id) => {
     return (
-      <Accordion
-        key={id}
-        sx={{
-          background:
-            "linear-gradient(0deg, rgba(255,247,127,1) 0%, rgba(109,156,255,1) 100%)",
-          borderRadius: 2,
-          padding: 1,
-          boxShadow: "4px 4px 4px rgba(0, 0, 0, 0.25)",
-          "&.Mui-expanded": { margin: 0 },
-        }}
-      >
+      <Accordion key={id} sx={accordion}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
+          // sx={accordionSummary}
         >
-          <Typography>{datetimeConverter(day.date_epoch)}</Typography>
+          <ForecastWeatherContent>
+            <ForecastWeatherDate>
+              {datetimeConverter(forecastday.date_epoch)}
+            </ForecastWeatherDate>
+            <ForecastWheatherTempBox>
+              <ForecastWheatherTempMax>
+                max {forecastday.day.maxtemp_c}℃
+              </ForecastWheatherTempMax>
+              <ForecastWheatherTempMin>
+                min {forecastday.day.mintemp_c}℃
+              </ForecastWheatherTempMin>
+            </ForecastWheatherTempBox>
+            <ForecastWheatherIcon
+              src={forecastday.day.condition.icon}
+              alt={forecastday.day.condition.text}
+            />
+            <ForecastWheatherText>
+              {forecastday.day.condition.text}
+            </ForecastWheatherText>
+          </ForecastWeatherContent>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
+          <Forecastday hours={forecastday.hour} />
         </AccordionDetails>
       </Accordion>
     );
